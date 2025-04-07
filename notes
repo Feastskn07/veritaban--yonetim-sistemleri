@@ -1,0 +1,52 @@
+SELECT * FROM adresler WHERE sehir like '%i%'
+-- adresler tablosunda içersinde i harfi geçen tüm şehirleri listele
+
+SELECT * FROM adresler WHERE sehir = 'Kayseri' and binaNo > 8
+-- adresler tablosunda kayseri şehrinde bina numarası 8'den büyük olan değerleri listele
+
+SELECT * FROM uyeler JOIN adresler ON adresler.adresNo = uyeler.adresNo WHERE adresler.sehir = 'Ankara'
+
+SELECT * FROM Uyeler JOIN Adresler ON Adresler.adresNo = Uyeler.adresNo WHERE Adresler.sehir = 'İstanbul' AND Uyeler.uyeAdi LIKE '%a%' AND Uyeler.cinsiyet = 'E'
+
+UPDATE KutuphaneKitap SET miktar = 10 WHERE ISBN = 12
+
+DELETE FROM KutuphaneKitap WHERE ISBN = 12
+
+SELECT * FROM KutuphaneKitap ORDER BY miktar ASC
+-- asc azdan çoğa doğru sıralar
+-- desc çoktan aza doğru sıralar
+
+SELECT * FROM Emanet WHERE emanetTarihi > '01.01.2023'
+
+SELECT * FROM Emanet WHERE emanetTarihi BETWEEN '01.01.2023' AND '31.12.2023'
+
+SELECT 
+	e.emanetNo,
+	u.uyeAdi,
+	u.uyeSoyadi,
+	k.kitapAdi,
+	e.emanetTarihi,
+	e.teslimTarihi
+FROM
+	Emanet e
+JOIN
+	Uyeler u ON e.uyeNo = u.uyeNo
+JOIN
+	Kitaplar k ON e.ISBN = k.ISBN
+WHERE
+	e.teslimTarihi IS NOT NULL AND
+	DATEDIFF(DAY, GETDATE(), e.teslimTarihi) <= 30 AND
+	DATEDIFF(DAY, GETDATE(), e.teslimTarihi) >= 0
+ORDER BY
+	e.teslimTarihi ASC
+
+// Veritabanı oluşturulacak.
+	Er diyagramından bakılarak tablolar oluşturulacak.
+	Tablolara değerler eklenecek.
+	Eklenen değerler sorgulanacak.
+	Foreing Keyler ve Primary Keyler e dikkat edilecek.
+		Sorgulama komutlarını ezberle.
+		Identity bloğunu ezberle.
+		Güncelleme ve silme işlemlerini ezberle.
+		Syntax'ı ezberle.
+		
